@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import referenceBasedTreeImplementation.*;
-public class BSTreeTest {
+public class BSTreeTest<E> {
 
 	MyBSTree tree = new MyBSTree();
 	@Test
