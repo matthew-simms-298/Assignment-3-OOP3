@@ -1,17 +1,33 @@
 package referenceBasedTreeImplementation;
 
+import java.time.temporal.TemporalAdjusters;
+import java.util.NoSuchElementException;
+
 import exceptions.TreeException;
 import utilities.BSTreeADT;
 import utilities.Iterator;
 
-public class MyBSTree implements BSTreeADT{
+import java.util.ArrayList;
+import java.util.List;
+
+@SuppressWarnings("deadcode, unused, typeSafety")
+
+public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, Iterator<E>{
     // these are placeholders and are subject to change if need be
     private int size;
     private int height;
+    private BSTreeNode<E> node;
+    
     @Override
-    public BSTreeNode getRoot() throws TreeException {
-        BSTreeNode node = new BSTreeNode();
-        return node;
+    public BSTreeNode<E> getRoot() throws TreeException {
+        BSTreeNode<E> rootNode = new BSTreeNode<>();
+        
+        if (rootNode.isTreeNodeEmpty()==false) {
+            throw new TreeException("Tree is empty");
+        }
+        else {
+            return rootNode;
+        }
     }
 
     @Override
@@ -36,44 +52,80 @@ public class MyBSTree implements BSTreeADT{
 
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+        node.setRootBranch(null);
     }
 
     @Override
-    public boolean contains(Comparable entry) throws TreeException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+    public boolean contains(E entry) throws TreeException {
+        if(node.isTreeNodeEmpty()==false){
+            throw new TreeException("Tree Is empty");
+        }else{
+            Iterator<E> iter = inorderIterator();
+            List<E> group = new ArrayList<>();
+            while(iter.hasNext()){group.add(iter.next());}
+            return group.contains(entry);
+        }
+    }
+
+    
+    public BSTreeNode<E> search(MyBSTree<E extends Comparable<E>> tree, BSTreeNode<E extends Comparable<E>> entry, BSTreeNode<E extends Comparable<E>> currentNode){
+        //Use SearchTree(MyBSTree tree, E entry, BSTreeNode currentNode) to search for the entry
+        return TreeSearch.searchTree(tree, entry, currentNode);
     }
 
     @Override
-    public BSTreeNode search(Comparable entry) throws TreeException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+    public boolean add(E newEntry) throws NullPointerException {
+        try {
+            if (node.getRootBranch() == null) {
+                BSTreeNode<E> rootNode = new BSTreeNode<E>();
+                rootNode.setRootBranch(rootNode);
+                rootNode.setNodeData(newEntry);
+            }
+            else if (node.getLeftBranch() == null) {
+                BSTreeNode<E> newLeftNode = new BSTreeNode<E>();
+                newLeftNode.setLeftBranch(newLeftNode);
+                newLeftNode.setNodeData(newEntry);
+            }
+            else {
+                BSTreeNode<E> newRightNode = new BSTreeNode<E>();
+                newRightNode.setLeftBranch(newRightNode);
+                newRightNode.setNodeData(newEntry);
+            }
+            return true;
+        }
+        catch (NullPointerException error) {
+            return false;
+        }
     }
 
     @Override
-    public boolean add(Comparable newEntry) throws NullPointerException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
-    }
-
-    @Override
-    public Iterator inorderIterator() {
+    public Iterator<E> inorderIterator() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'inorderIterator'");
     }
 
     @Override
-    public Iterator preorderIterator() {
+    public Iterator<E> preorderIterator() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'preorderIterator'");
     }
 
     @Override
-    public Iterator postorderIterator() {
+    public Iterator<E> postorderIterator() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'postorderIterator'");
+    }
+
+    @Override
+    public boolean hasNext() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
+    }
+
+    @Override
+    public E next() throws NoSuchElementException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'next'");
     }
 
 }
