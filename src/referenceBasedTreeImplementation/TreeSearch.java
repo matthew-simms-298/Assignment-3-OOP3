@@ -3,7 +3,6 @@ package referenceBasedTreeImplementation;
 /**
  * Tree Search
  * Contains methods for searching a tree
- * @author Theo Wells, Ryan Clarkson
  */
 
 import java.time.temporal.TemporalAdjusters;
@@ -22,14 +21,8 @@ public class TreeSearch<E extends Comparable<E>> implements Comparable<TreeSearc
     }
 
     public static <E extends Comparable<E>> BSTreeNode<E> searchTree(MyBSTree<E> tree, BSTreeNode<E> entry, BSTreeNode<E> currentNode) {
-        //If there is no node in the Tree, Throws TreeException
-        if (tree.isEmpty()==false) {
-            throw new TreeException("Tree is empty");
-        }
-        //If there is a node in the Tree, Search for the entry
-        else {
-            TreeSearch<E> _dummy = new TreeSearch<E>(currentNode);
-            
+        TreeSearch<E> _dummy = new TreeSearch<E>(currentNode);
+        try{
             //Search Method
             int comparison = _dummy.value.compareTo(currentNode);
 
@@ -40,6 +33,8 @@ public class TreeSearch<E extends Comparable<E>> implements Comparable<TreeSearc
             }else{
                 return searchTree(tree, entry, currentNode.getRightBranch());
             }
+        } catch (NoSuchElementException e){
+            return null;
         }
     }
 

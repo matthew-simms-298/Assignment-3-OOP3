@@ -1,6 +1,5 @@
 package referenceBasedTreeImplementation;
 
-import java.time.temporal.TemporalAdjusters;
 import java.util.NoSuchElementException;
 
 import exceptions.TreeException;
@@ -67,10 +66,8 @@ public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, 
         }
     }
 
-    
-    public BSTreeNode<E> search(MyBSTree<E extends Comparable<E>> tree, BSTreeNode<E extends Comparable<E>> entry, BSTreeNode<E extends Comparable<E>> currentNode){
-        //Use SearchTree(MyBSTree tree, E entry, BSTreeNode currentNode) to search for the entry
-        return TreeSearch.searchTree(tree, entry, currentNode);
+    public BSTreeNode<E> search(E entry){
+        return node;
     }
 
     @Override

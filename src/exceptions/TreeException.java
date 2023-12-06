@@ -6,8 +6,4 @@ public class TreeException extends Exception {
         super(message);
     } 
 
-    public TreeException(){
-        super();
-    }
-
 }

@@ -2,19 +2,33 @@ package testing;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.junit.Test;
 import referenceBasedTreeImplementation.*;
+
 public class BSTreeTest<E> {
 
 	MyBSTree tree = new MyBSTree();
+
 	@Test
-	public void testAdd() {
-		BSTreeNode<E> root = new BSTreeNode<>(1, null, root.getLeftBranch(), null);
-		tree.add(root);
-		BSTreeNode<E> nodeA = new BSTreeNode<>(2, null, null, root);
-		tree.add(nodeA);
-		BSTreeNode<E> nodeB = new BSTreeNode<>(3, null, null, root);
-		tree.add(nodeB);
+	public void testAdd() throws IOException {
+		BufferedReader bufferedReaderTextFile = new BufferedReader(new FileReader("src/utilities/textfile.txt"));
+		String line = bufferedReaderTextFile.readLine();
+
+		while (line != null) {
+			if (line != "") {
+                line = bufferedReaderTextFile.readLine();
+                //Save line to MyBSTree 
+                assertEquals("Failed", true, tree.add(line));
+            }
+		}
+		bufferedReaderTextFile.close();
 	}
 
 }
+
+
