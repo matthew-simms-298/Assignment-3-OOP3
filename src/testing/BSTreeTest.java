@@ -3,7 +3,6 @@ package testing;
 import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -12,15 +11,16 @@ import org.junit.Test;
 import exceptions.TreeException;
 import referenceBasedTreeImplementation.*;
 
-public class BSTreeTest<E> {
+public class BSTreeTest<E extends Comparable<? super E>> {
 
-	MyBSTree tree = new MyBSTree();
+	MyBSTree<String> tree = new MyBSTree<String>();
 	
 	public void fillTree() throws IOException {
 		BufferedReader bufferedReaderTextFile = new BufferedReader(new FileReader("src/utilities/textfile.txt"));
 		String line = bufferedReaderTextFile.readLine();
 
 		while (line != null) {
+				tree.add(line);
                 line = bufferedReaderTextFile.readLine();
 		}
 		bufferedReaderTextFile.close();
@@ -37,7 +37,7 @@ public class BSTreeTest<E> {
 	@Test
 	public void testSearch() throws IOException {
 		
-		E lineToSearch = (E) tree.search("this is a line");
+		String lineToSearch = tree.search("this is a line").toString();
 		
 		assertEquals("I don't know how you could find this lol", tree.next(), lineToSearch);
 	}

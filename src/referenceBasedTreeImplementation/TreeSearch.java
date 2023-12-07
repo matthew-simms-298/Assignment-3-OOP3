@@ -5,12 +5,7 @@ package referenceBasedTreeImplementation;
  * Contains methods for searching a tree
  */
 
-import java.time.temporal.TemporalAdjusters;
 import java.util.NoSuchElementException;
-import java.util.Comparator;
-
-import exceptions.TreeException;
-import utilities.BSTreeADT;
 
 public class TreeSearch<E extends Comparable<E>> implements Comparable<TreeSearch<E>>  {
     
