@@ -12,12 +12,10 @@ import java.util.List;
 @SuppressWarnings("deadcode, unused, typeSafety")
 
 public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, Iterator<E>{
-    // these are placeholders and are subject to change if need be
     private int size;
     private int height;
     private BSTreeNode<E> root;
-    
-    @Override
+
     public BSTreeNode<E> getRoot() throws TreeException {
         BSTreeNode<E> rootNode = new BSTreeNode<>();
         
@@ -29,17 +27,14 @@ public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, 
         }
     }
 
-    @Override
     public int getHeight() {
         return height;
     }
 
-    @Override
     public int size() {
         return size;
     }
 
-    @Override
     public boolean isEmpty() {
         if (size > 0) {
             return false;
@@ -49,13 +44,11 @@ public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, 
         }
     }
 
-    @Override
     public void clear() {
         root = null;
         size = 0;
     }
 
-    @Override
     public boolean contains(E entry) throws TreeException {
         if(root.isTreeNodeEmpty()==false){
             throw new TreeException("Tree Is empty");
@@ -101,7 +94,7 @@ public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, 
     	}
     	return root;
     }
-    @Override
+
     public boolean add(E newEntry) throws NullPointerException {
         try {
         	root = addHelper(root, new BSTreeNode(newEntry));
@@ -112,25 +105,18 @@ public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, 
         }
     }
 
-    @Override
     public Iterator<E> inorderIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'preorderIterator'");
+    	return null;
     }
 
-    @Override
     public Iterator<E> preorderIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'preorderIterator'");
+    	return null;
     }
 
-    @Override
     public Iterator<E> postorderIterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'postorderIterator'");
+    	return null;
     }
 
-    @Override
     public boolean hasNext() {
     	if (root == null) {
     		return false;
