@@ -15,7 +15,7 @@ public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, 
     // these are placeholders and are subject to change if need be
     private int size;
     private int height;
-    private BSTreeNode<E> node;
+    private BSTreeNode<E> root;
     
     @Override
     public BSTreeNode<E> getRoot() throws TreeException {
@@ -51,12 +51,13 @@ public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, 
 
     @Override
     public void clear() {
-        node.setRootBranch(null);
+        root = null;
+        size = 0;
     }
 
     @Override
     public boolean contains(E entry) throws TreeException {
-        if(node.isTreeNodeEmpty()==false){
+        if(root.isTreeNodeEmpty()==false){
             throw new TreeException("Tree Is empty");
         }else{
             Iterator<E> iter = inorderIterator();
@@ -65,30 +66,46 @@ public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, 
             return group.contains(entry);
         }
     }
-
-    public BSTreeNode<E> search(E entry){
-        return node;
+    
+    public BSTreeNode<E>  searchHelper(BSTreeNode<E> node, E data) {
+    	if (root == null) {
+    		return null;
+    	}
+    	else if (root.getNodeData() == data) {
+    		return node;
+    	}
+    	else if (root.getLeftBranch() != null) {
+    		return searchHelper(root.getLeftBranch(), data);
+    	}
+    	else { // if right is not null
+    		return searchHelper(root.getRightBranch(), data);
+    	}
     }
 
+    public BSTreeNode<E> search(E entry){
+        return searchHelper(root, entry);
+    }
+    
+    public BSTreeNode<E> addHelper(BSTreeNode<E> root, BSTreeNode<E> node) {
+    	E data = node.getNodeData();
+    	
+    	if (root == null) {
+    		root = node;
+    		return root;
+    	}
+    	else if (root.getLeftBranch() == null) {
+    		root.setLeftBranch(addHelper(root.getLeftBranch(), node));
+    	}
+    	else {
+    		root.setRightBranch(addHelper(root.getRightBranch(), node));
+    	}
+    	return root;
+    }
     @Override
     public boolean add(E newEntry) throws NullPointerException {
         try {
-            if (node.getRootBranch() == null) {
-                BSTreeNode<E> rootNode = new BSTreeNode<E>();
-                rootNode.setRootBranch(rootNode);
-                rootNode.setNodeData(newEntry);
-            }
-            else if (node.getLeftBranch() == null) {
-                BSTreeNode<E> newLeftNode = new BSTreeNode<E>();
-                newLeftNode.setLeftBranch(newLeftNode);
-                newLeftNode.setNodeData(newEntry);
-            }
-            else {
-                BSTreeNode<E> newRightNode = new BSTreeNode<E>();
-                newRightNode.setLeftBranch(newRightNode);
-                newRightNode.setNodeData(newEntry);
-            }
-            return true;
+        	root = addHelper(root, new BSTreeNode(newEntry));
+        	return true;
         }
         catch (NullPointerException error) {
             return false;
@@ -98,7 +115,7 @@ public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, 
     @Override
     public Iterator<E> inorderIterator() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inorderIterator'");
+        throw new UnsupportedOperationException("Unimplemented method 'preorderIterator'");
     }
 
     @Override
@@ -115,14 +132,33 @@ public class MyBSTree<E extends Comparable<? super E>> implements BSTreeADT<E>, 
 
     @Override
     public boolean hasNext() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
+    	if (root == null) {
+    		return false;
+    	}
+    	else if (root.getLeftBranch() == null) {
+    		return false;
+    	}
+    	else if (root.getRightBranch() == null) {
+    		return false;
+    	}
+    	else {
+    		return true;
+    	}
     }
 
     @Override
     public E next() throws NoSuchElementException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'next'");
+        try {
+        	if (hasNext() == true) {
+        		return root.getNodeData();
+        	}
+        	else {
+        		return null;
+        	}
+        }
+        catch (NoSuchElementException error) {
+        	return null;
+        }
     }
 
 }

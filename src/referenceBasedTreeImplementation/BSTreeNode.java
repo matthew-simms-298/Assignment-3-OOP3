@@ -4,17 +4,14 @@ public class BSTreeNode<E> implements Comparable<BSTreeNode<E>> {
     private E nodeData;
     private BSTreeNode<E> leftBranch;
     private BSTreeNode<E> rightBranch;
-    private BSTreeNode<E> rootBranch;
 
     
     
     public BSTreeNode() {}
     
-    public BSTreeNode(E nodeData, BSTreeNode<E> rightBranch, BSTreeNode<E> leftBranch, BSTreeNode<E> rootBranch) {
+    public BSTreeNode(E nodeData) {
         this.nodeData = nodeData;
-        this.rightBranch = rightBranch;
-        this.leftBranch = leftBranch;
-        this.rootBranch = rootBranch;
+
     }
 
     public boolean isTreeNodeEmpty(){
@@ -49,15 +46,7 @@ public class BSTreeNode<E> implements Comparable<BSTreeNode<E>> {
     public void setRightBranch(BSTreeNode<E> rightBranch) {
         this.rightBranch = rightBranch;
     }
-
-    public BSTreeNode<E> getRootBranch() {
-        return rootBranch;
-    }
-
-    public void setRootBranch(BSTreeNode<E> rootBranch) {
-        this.rootBranch = rootBranch;
-    }
-
+    
     @Override
     public int compareTo(BSTreeNode<E> other){
         return this.compareTo(other);
